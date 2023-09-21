@@ -37,4 +37,10 @@ const deleteTodo = (todoId, setTodo) => {
     })
 }
 
-export {getAllTodo, addTodo, updateTodo, deleteTodo}
+const isTaskDone = (todoId, isDone, setIsDone) => {
+    axios.put(`${baseUrl}/isTaskDone`,{_id: todoId, isDone}).then((res) => {
+       setIsDone(false)
+    }).catch((err) => console.log(err))
+}
+
+export {getAllTodo, addTodo, updateTodo, deleteTodo, isTaskDone}
