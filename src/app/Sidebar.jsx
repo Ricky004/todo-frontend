@@ -1,8 +1,9 @@
+import { cn } from "@/lib/utils"
 import { ChevronFirst, ChevronLast } from "lucide-react"
 import { createContext, useContext, useState } from "react"
 
 const SidebarContext = createContext()
-const Sidebar = ({children}) => {
+const Sidebar = ({children, className}) => {
 
   const [expanded, setExpanded] = useState(true)
   
@@ -11,7 +12,7 @@ const Sidebar = ({children}) => {
       <aside className="h-screen">
          <nav className="h-full flex flex-col bg-white border-r shadow-sm">
             <div className="p-4 pb-2 flex justify-between items-center">
-                <h3 className={` font-medium ${expanded ? "block" : "hidden"}`}>Menu</h3>
+                <h3 className={` font-bold text-xl ${expanded ? "block" : "hidden"}`}>Menu</h3>
                 <button onClick={() => setExpanded(e =>!e)} className="p-1.5 rounded-lg bg-gray-50 hover:bg-gray-100">
                   {expanded ? <ChevronFirst /> : <ChevronLast /> }
                 </button>
@@ -26,16 +27,17 @@ const Sidebar = ({children}) => {
   )
 }
 
-const SidebarItem = ({icon, text, active, alert }) => {
+const SidebarItem = ({ icon, text, active, alert }) => {
       
   const {expanded} = useContext(SidebarContext)
+
   return (
     <li className={`relative flex items-center py-2 px-3 my-1 font-medium
     rounded-md cursor-pointer transition-colors group
     ${
        active
        ? "bg-gradient-to-tr from-indigo-200 to-indigo-100 text-indigo-800"
-       : "hover: bg-indigo-50 text-gray-600"
+       : "hover:bg-indigo-50 text-gray-600"
     }`}>
       {icon}
       <span className={`overflow-hidden translate-all ${expanded ? "w-52 ml-3" : "w-0"}`}>
@@ -58,5 +60,38 @@ const SidebarItem = ({icon, text, active, alert }) => {
   )
 }
 
+const SidebarSubHeading = ({text, className}) => {
 
-export  {Sidebar, SidebarItem}
+  const {expanded} = useContext(SidebarContext)
+
+    return (
+      <>
+        <span className={cn( className,`font-bold text-xs ${expanded ? "block" : "hidden"}`)}>{text}</span>
+      </>
+    )
+}
+
+const SidebarHorizontalLine = () => {
+
+  const {expanded} = useContext(SidebarContext)
+
+    return (
+      <>
+        <hr className={expanded ? "block" : "hidden"}/>
+      </>
+    )
+}
+
+const SidebarComponent = ({children, className}) => {
+
+  const {expanded} = useContext(SidebarContext)
+
+    return (
+      <>
+        <div className={cn( className,`${expanded ? "block" : "hidden"}`)}>{children}</div>
+      </>
+    )
+}
+
+
+export  {Sidebar, SidebarItem, SidebarSubHeading, SidebarHorizontalLine, SidebarComponent}
