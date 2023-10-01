@@ -1,11 +1,12 @@
-import {  CalendarDays, ChevronsRight, ListChecks, SigmaSquare, StickyNote } from "lucide-react"
+import {  CalendarDays, ChevronsRight, ListChecks, StickyNote } from "lucide-react"
 import { Sidebar, SidebarComponent, SidebarHorizontalLine, SidebarItem, SidebarSubHeading } from "./Sidebar"
 import { Input } from "@/components/ui/input"
+import TodoList from "./TodoList"
 
 function Sidebars() {
   return (
     <>
-      <Sidebar >   
+      <Sidebar >    
           <SidebarComponent className="py-4">
             <Input placeholder="search"/>
           </SidebarComponent>
@@ -16,8 +17,9 @@ function Sidebars() {
           <SidebarItem icon={<StickyNote size={20}/>} text="Sticky Wall" />
           <SidebarHorizontalLine />
           <SidebarSubHeading text="LISTS" className="pt-5" />
-          <SidebarItem icon={<SigmaSquare size={20}/>} text="Personal" />
-          <SidebarItem icon={<SigmaSquare size={20}/>} text="Office" />
+          <SidebarComponent className="py-4">
+            <TodoList />
+          </SidebarComponent>
         </Sidebar>
     </>
   )

@@ -3,19 +3,19 @@ import axios from 'axios'
 const baseUrl = "http://localhost:4000"
 
 const getAllTodo = (setTodo) => {
-    axios.get(baseUrl).then((response) => {
-        setTodo(response.data)
+    axios.get(`${baseUrl}/todo-lists/:id/tasks`).then((res) => {
+        setTodo(res.data)
     }).catch((error) => {
-        console.error('Error fetching todos:', error);
+        console.error('Error fetching todos:', error)
     })
 }
 
 const addTodo = (text, setText, setTodo) => {
-    axios.post(`${baseUrl}/save`,{text}).then((res) => {
+    axios.post(`${baseUrl}/todo-lists`, {text}).then((res) => {
         setText("")
         getAllTodo(setTodo)
     }).catch((error) => {
-        console.error('Error fetching todos:', error);
+        console.error('Error fetching todos:', error)
     })
 }
 
@@ -25,7 +25,7 @@ const updateTodo = (todoId, text, setTodo, setText, setIsUpadte) => {
         setIsUpadte(false)
         getAllTodo(setTodo)
     }).catch((error) => {
-        console.error('Error fetching todos:', error);
+        console.error('Error fetching todos:', error)
     })
 }
 
@@ -33,7 +33,7 @@ const deleteTodo = (todoId, setTodo) => {
     axios.post(`${baseUrl}/delete`,{_id: todoId }).then((res) => {
         getAllTodo(setTodo)
     }).catch((error) => {
-        console.error('Error fetching todos:', error);
+        console.error('Error fetching todos:', error)
     })
 }
 
